@@ -1,2 +1,2 @@
-# NFTFruits
+# Fruits
 NFT Fruits Website
