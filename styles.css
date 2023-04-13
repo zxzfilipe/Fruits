@@ -89,3 +89,41 @@ h2 {
     max-width: 1200px;
     padding: 0 1rem;
 }
+
+.nft-card {
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.nft-image {
+    width: 100%;
+    object-fit: cover;
+    height: 200px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.nft-title {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.nft-description {
+    font-size: 1rem;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+}
+
+.nft-price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.nft-action {
+    align-self: flex-start;
+}
