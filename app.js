@@ -499,6 +499,8 @@ async function loadNFTs() {
       // Fetch the metadata from the tokenURI
       const response = await fetch(tokenURI);
       const metadata = await response.json();
+        console.log(tokenURI)
+        console.log(metadata)
 
       // Create a new NFT element and append it to the NFT container
       const nftElement = document.createElement("div");
