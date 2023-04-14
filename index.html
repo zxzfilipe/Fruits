@@ -1,48 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fruit NFT Marketplace</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
-    <script defer src="app.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruit NFT Marketplace</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#nft-marketplace">Marketplace</a></li>
-                <li><a href="#user-nfts">My NFTs</a></li>
-            </ul>
-        </nav>
-        <h1>Fruit NFT Marketplace</h1>
-        <section id="connect-wallet">
-            <button id="connect-button">Connect Wallet</button>
-        </section>
-    </header>
+  <header>
+    <h1>Fruit NFT Marketplace</h1>
+  </header>
+  
+  <main>
+    <section id="wallet-info">
+      <button id="connect-wallet">Connect Wallet</button>
+      <p id="wallet-address">Wallet Address: Not connected</p>
+    </section>
 
-    <main>
-        <section id="nft-marketplace">
-            <h2>Marketplace</h2>
-            <div class="nft-grid">
-              <div class="nft-card">
-        <img src="path/to/nft-image.jpg" alt="NFT Image" class="nft-image">
-                <h3 class="nft-title">NFT Title</h3>
-                <p class="nft-description">NFT description goes here.</p>
-                <div class="nft-price">Price: 0.1 ETH</div>
-                <button class="nft-action">Buy</button>
-              </div>
-            </div>
-        </section>
+    <section id="mint">
+      <h2>Mint a New Fruit NFT</h2>
+      <form>
+        <label for="tokenURI">Token URI:</label>
+        <input type="text" id="tokenURI" name="tokenURI" placeholder="Enter token URI">
+        <button type="submit" id="mint-nft">Mint NFT</button>
+      </form>
+    </section>
 
-        <section id="user-nfts">
-            <h2>My NFTs</h2>
-            <div class="nft-grid">
-                <!-- User NFTs will be populated here -->
-            </div>
-        </section>
-    </main>
+    <section id="nft-list">
+      <h2>Your Fruit NFTs</h2>
+      <div id="nft-container"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
