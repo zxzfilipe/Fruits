@@ -495,14 +495,25 @@ async function loadNFTs() {
     const tokenId = await contractInstance.tokenOfOwnerByIndex(userAddress, i);
     const tokenURI = await contractInstance.tokenURI(tokenId);
 
-    // Create a new NFT element and append it to the NFT container
-    const nftElement = document.createElement("div");
-    nftElement.classList.add("nft");
-    nftElement.innerHTML = `
-      <p>Token ID: ${tokenId.toString()}</p>
-      <p>Token URI: ${tokenURI}</p>
-    `;
+    // Fetch the metadata from the tokenURI
+    fetch(tokenURI)
+      .then((response) => response.json())
+      .then((metadata) => {
+        // Create a new NFT element and append it to the NFT container
+        const nftElement = document.createElement("div");
+        nftElement.classList.add("nft");
+        nftElement.innerHTML = `
+          <p>Token ID: ${tokenId.toString()}</p>
+          <p>Name: ${metadata.name}</p>
+          <p>Description: ${metadata.description}</p>
+          <img src="${metadata.image}" alt="${metadata.name}" />
+        `;
 
-    nftContainer.appendChild(nftElement);
+        nftContainer.appendChild(nftElement);
+      })
+      .catch((error) => {
+        console.error("Error fetching metadata from token URI:", error);
+      });
   }
 }
+
