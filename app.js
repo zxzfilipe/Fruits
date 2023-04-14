@@ -492,28 +492,29 @@ async function loadNFTs() {
   nftContainer.innerHTML = "";
 
   for (let i = 0; i < nftCount; i++) {
-    const tokenId = await contractInstance.tokenOfOwnerByIndex(userAddress, i);
-    const tokenURI = await contractInstance.tokenURI(tokenId);
+    try {
+      const tokenId = await contractInstance.tokenOfOwnerByIndex(userAddress, i);
+      const tokenURI = await contractInstance.tokenURI(tokenId);
 
-    // Fetch the metadata from the tokenURI
-    fetch(tokenURI)
-      .then((response) => response.json())
-      .then((metadata) => {
-        // Create a new NFT element and append it to the NFT container
-        const nftElement = document.createElement("div");
-        nftElement.classList.add("nft");
-        nftElement.innerHTML = `
-          <p>Token ID: ${tokenId.toString()}</p>
-          <p>Name: ${metadata.name}</p>
-          <p>Description: ${metadata.description}</p>
-          <img src="${metadata.image}" alt="${metadata.name}" />
-        `;
+      // Fetch the metadata from the tokenURI
+      const response = await fetch(tokenURI);
+      const metadata = await response.json();
 
-        nftContainer.appendChild(nftElement);
-      })
-      .catch((error) => {
-        console.error("Error fetching metadata from token URI:", error);
-      });
+      // Create a new NFT element and append it to the NFT container
+      const nftElement = document.createElement("div");
+      nftElement.classList.add("nft");
+      nftElement.innerHTML = `
+        <p>Token ID: ${tokenId.toString()}</p>
+        <p>Name: ${metadata.name}</p>
+        <p>Description: ${metadata.description}</p>
+        <img src="${metadata.image}" alt="${metadata.name}" />
+      `;
+
+      nftContainer.appendChild(nftElement);
+    } catch (error) {
+      console.error("Error fetching metadata from token URI:", error);
+    }
   }
 }
+
 
