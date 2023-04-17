@@ -414,109 +414,57 @@ const contractABI = [
       "constant": true
     }
   ];
-    const contractAddress = "0xD83358489b05248BcF0FFe86d13ccC779e6023fa";
+const contractAddress = "0xD83358489b05248BcF0FFe86d13ccC779e6023fa";
 
-// Variables for wallet connection and contract instance
-let signer;
-let contractInstance;
+// Connect to Ethereum
+const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545');
+const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-// DOM elements
-const connectWalletButton = document.getElementById("connect-wallet");
-const walletAddressDisplay = document.getElementById("wallet-address");
-const mintNFTButton = document.getElementById("mint-nft");
-const tokenURIInput = document.getElementById("tokenURI");
-const nftContainer = document.getElementById("nft-container");
+document.getElementById('connectWalletBtn').addEventListener('click', connectWallet);
 
-// Connect wallet button click event
-connectWalletButton.addEventListener("click", async () => {
-  if (typeof window.ethereum !== "undefined") {
-    try {
-      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      signer = provider.getSigner();
-
-      // Display the connected wallet address
-      walletAddressDisplay.textContent = `Wallet Address: ${accounts[0]}`;
-
-      // Create contract instance
-      contractInstance = new ethers.Contract(contractAddress, contractABI, signer);
-
-      // Load and display the user's NFTs
-      loadNFTs();
-    } catch (error) {
-      console.error("Error connecting to wallet:", error);
+async function connectWallet() {
+    if (window.ethereum) {
+        try {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const account = accounts[0];
+            loadNFTs(account);
+        } catch (error) {
+            console.error('User rejected the request:', error);
+        }
+    } else {
+        alert('Metamask not installed. Please install Metamask and try again.');
     }
-  } else {
-    alert("Ethereum-compatible wallet not detected. Please install MetaMask or another compatible browser extension.");
-  }
-});
-
-// Mint NFT button click event
-mintNFTButton.addEventListener("click", async (event) => {
-  event.preventDefault();
-
-  if (!signer) {
-    alert("Please connect your wallet first.");
-    return;
-  }
-
-  const tokenURI = tokenURIInput.value.trim();
-    
-if (tokenURI === "") {
-    alert("Please enter a token URI.");
-    return;
-  }
-
-  try {
-    // Mint the NFT
-    const tx = await contractInstance.mint(signer.getAddress(), tokenURI);
-    await tx.wait();
-
-    // Clear the input field
-    tokenURIInput.value = "";
-
-    // Load and display the user's NFTs
-    loadNFTs();
-  } catch (error) {
-    console.error("Error minting NFT:", error);
-  }
-});
-
-async function loadNFTs() {
-  if (!signer || !contractInstance) return;
-
-  const userAddress = await signer.getAddress();
-  const nftCount = await contractInstance.balanceOf(userAddress);
-
-  // Clear the NFT container
-  nftContainer.innerHTML = "";
-
-  for (let i = 0; i < nftCount; i++) {
-    try {
-      const tokenId = await contractInstance.tokenOfOwnerByIndex(userAddress, i);
-      const tokenURI = await contractInstance.tokenURI(tokenId);
-
-      // Fetch the metadata from the tokenURI
-      const response = await fetch(tokenURI);
-      const metadata = await response.json();
-        console.log(tokenURI)
-        console.log(metadata)
-
-      // Create a new NFT element and append it to the NFT container
-      const nftElement = document.createElement("div");
-      nftElement.classList.add("nft");
-      nftElement.innerHTML = `
-        <p>Token ID: ${tokenId.toString()}</p>
-        <p>Name: ${metadata.name}</p>
-        <p>Description: ${metadata.description}</p>
-        <img src="${metadata.image}" alt="${metadata.name}" />
-      `;
-
-      nftContainer.appendChild(nftElement);
-    } catch (error) {
-      console.error("Error fetching metadata from token URI:", error);
-    }
-  }
 }
 
+async function loadNFTs(account) {
+    const balance = await contract.methods.balanceOf(account).call();
+    const gallery = document.getElementById('gallery');
 
+    for (let i = 0; i < balance; i++) {
+        const tokenId = await contract.methods.tokenOfOwnerByIndex(account, i).call();
+        const tokenURI = await contract.methods.tokenURI(tokenId).call();
+
+        axios.get(tokenURI).then((response) => {
+            const metadata = response.data;
+            const nftCard = document.createElement('div');
+            nftCard.className = 'nft-card';
+
+            const img = document.createElement('img');
+            img.src = metadata.image;
+
+            const h3 = document.createElement('h3');
+            h3.textContent = metadata.name;
+
+            const p = document.createElement('p');
+            p.textContent = metadata.description;
+
+            nftCard.appendChild(img);
+            nftCard.appendChild(h3);
+            nftCard.appendChild(p);
+
+        gallery.appendChild(nftCard);
+        }).catch((error) => {
+            console.error('Error fetching metadata:', error);
+        });
+    }
+}
