@@ -1,4 +1,3 @@
-/* General styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,129 +5,147 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f0f8ff;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
     color: #333;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
+header {
+    background: #00917c;
+    padding: 1rem;
 }
 
-/* Header and navigation */
-header {
-    padding: 1rem;
-    background-color: #0d47a1;
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-nav .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+#connectWalletBtn {
+    background-color: #007965;
     color: #ffffff;
-}
-
-button#connectWalletBtn {
+    font-size: 1.25rem;
     padding: 0.5rem 1rem;
-    background-color: #1e88e5;
     border: none;
     border-radius: 5px;
-    color: #ffffff;
     cursor: pointer;
-    font-size: 1rem;
 }
 
-/* Hero section */
-.hero {
-    padding: 2rem;
-    text-align: center;
-    background-image: url('https://example.com/tropical-background.jpg');
-    background-size: cover;
-    background-position: center;
-    color: #ffffff;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.hero p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-}
-
-.cta-btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: #1e88e5;
-    border-radius: 5px;
-    color: #ffffff;
-    font-size: 1.25rem;
-}
-
-/* NFT Gallery */
-.nft-gallery {
-    padding: 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 1rem;
-}
-
-.nft-card {
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
+.logo-social {
     display: flex;
-    flex-direction: column;
     align-items: center;
 }
 
-.nft-card img {
-    max-width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: 5px;
+.logo {
+    color: #ffffff;
+    font-size: 1.5rem;
+    text-decoration: none;
+    margin-right: 2rem;
+}
+
+.social a {
+    color: #ffffff;
+    font-size: 1rem;
+    text-decoration: none;
+    margin-right: 1rem;
+}
+
+.social a:last-child {
+    margin-right: 0;
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.hero-text h1 {
+    font-size: 2.5rem;
+    color: #ffffff;
     margin-bottom: 1rem;
+}
+
+.hero-text p {
+    color: #ffffff;
+    font-size: 1.25rem;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+main {
+padding: 1rem;
+background: #f5f5f5;
+}
+
+.nft-gallery {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+grid-gap: 1rem;
+}
+
+.nft-card {
+background: #ffffff;
+border-radius: 5px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+overflow: hidden;
+display: flex;
+flex-direction: column;
+}
+
+.nft-card img {
+width: 100%;
+object-fit: cover;
+}
+
+.nft-card .info {
+padding: 1rem;
+flex: 1;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
 }
 
 .nft-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
+font-size: 1.25rem;
+margin-bottom: 0.5rem;
 }
 
 .nft-card p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    text-align: center;
+font-size: 1rem;
 }
 
-/* Media queries */
+.nft-card .actions {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.nft-card button {
+background-color: #007965;
+color: #ffffff;
+font-size: 1rem;
+padding: 0.5rem 1rem;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
 @media (max-width: 768px) {
-    .hero {
-        background-size: 150%;
-    }
-
-    .hero h1 {
-        font-size: 2rem;
-    }
+.hero {
+flex-direction: column;
+text-align: center;
+}
+    
+.hero-text {
+    margin-bottom: 2rem;
 }
 
-@media (max-width: 480px) {
-    .hero {
-        background-size: 200%;
-    }
-
-    .hero h1 {
-        font-size: 1.5rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
+.hero-image img {
+    max-width: 100%;
 }
- 
