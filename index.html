@@ -1,38 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fruit NFT Marketplace</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tropical Futuristic NFT Marketplace</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Fruit NFT Marketplace</h1>
-  </header>
-  
-  <main>
-    <section id="wallet-info">
-      <button id="connect-wallet">Connect Wallet</button>
-      <p id="wallet-address">Wallet Address: Not connected</p>
-    </section>
-
-    <section id="mint">
-      <h2>Mint a New Fruit NFT</h2>
-      <form>
-        <label for="tokenURI">Token URI:</label>
-        <input type="text" id="tokenURI" name="tokenURI" placeholder="Enter token URI">
-        <button type="submit" id="mint-nft">Mint NFT</button>
-      </form>
-    </section>
-
-    <section id="nft-list">
-      <h2>Your Fruit NFTs</h2>
-      <div id="nft-container"></div>
-    </section>
-  </main>
-
-  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
-  <script src="app.js"></script>
+    <header>
+        <nav>
+            <a href="#" class="logo">Tropical NFT</a>
+            <button id="connectWalletBtn">Connect Wallet</button>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Welcome to the Tropical Futuristic NFT Marketplace</h1>
+            <p>Discover and trade unique digital assets inspired by the vibrant world of tropical nature.</p>
+            <a href="#gallery" class="cta-btn">Explore the Marketplace</a>
+        </section>
+        <section id="gallery" class="nft-gallery">
+            <!-- NFTs will be dynamically added here -->
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
